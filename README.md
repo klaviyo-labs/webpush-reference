@@ -54,9 +54,3 @@ context for a flow webhook. The JSON body should be the following (update `messa
   "kl_id": "{{person|lookup:'KlaviyoID'}}"
 }
 ```
-
-## FAQ
-
-Q: Question1?
-
-A: Answer1.
