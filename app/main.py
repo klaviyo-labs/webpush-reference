@@ -122,7 +122,7 @@ async def push(push_message: PushMessage, background_tasks: BackgroundTasks):
 
 
 @app.get("/main.js")
-async def get_js(request: Request):
+async def get_main_js(request: Request):
     return templates.TemplateResponse(
         "main.js",
         {
