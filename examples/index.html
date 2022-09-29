@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Web Push Demo</title>
+</head>
+
+<body>
+
+    <header>
+        <h1>Web Push Demo</h1>
+    </header>
+
+    <main>
+        <p>Welcome to the webpush demo.</p>
+        <p>Please ensure notifications are globally enabled for your browser, and click the button below.</p>
+        <p>
+            <button disabled class="push-btn">
+                Enable Push Messaging
+            </button>
+        </p>
+        <section class="subscription-details" hidden>
+            <p>You are subscribed to web push. The following payload was sent to the associated Klaviyo account:</p>
+            <code class="subscription-token"></code>
+        </section>
+    </main>
+
+    <!-- Add Klaviyo script and webpush script e.g. -->
+    <!-- <script type="text/javascript" src="//static.klaviyo.com/onsite/js/klaviyo.js?company_id=[YOURKLID]"></script>
+    <script defer type="text/javascript" src="//[YOURSITEPATH]/main.js"></script> -->
+</body>
+
+</html>

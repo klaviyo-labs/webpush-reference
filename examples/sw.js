@@ -4,11 +4,12 @@ self.addEventListener('push', function(event) {
   console.log('[Service Worker] Push Received.');
   console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-  const title = 'Michael Worthley';
+  const title = 'Klaviyo';
   const options = {
     body: `"${event.data.text()}"`,
-    icon: 'https://www.klaviyo.com/wp-content/uploads/2022/03/favicon.png',
-    badge: 'https://www.klaviyo.com/wp-content/uploads/2022/03/favicon.png'
+    icon: './images/logo.png',
+    badge: './images/logo.png',
+    data: {url: event.currentTarget.registration.scope}
   };
 
   event.waitUntil(self.registration.showNotification(title, options));
@@ -20,6 +21,6 @@ self.addEventListener('notificationclick', function(event) {
   event.notification.close();
 
   event.waitUntil(
-    clients.openWindow('https://')
+    clients.openWindow(event.notification.data.url)
   );
 });
