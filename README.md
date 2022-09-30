@@ -34,6 +34,7 @@ Middleware for hosting your own web push services, backed by Klaviyo CDP.
 * Copy `example.env` to `.env`.
     * `KLAVIYO_PRIVATE_KEY` Klaviyo [private key](https://help.klaviyo.com/hc/en-us/articles/115005062267-How-to-Manage-Your-Account-s-API-Keys#generate-a-private-api-key3)
     * `SITE_WORKER_URL` Branded site for push e.g. `https://mysite.com`
+    * `SERVER_API_KEY` API key used to authenticate the `/push` endpoint
     * `SERVER_URL` Push URL e.g. `https://mypushserver.com`
     * `VAPID_PRIVATE_KEY` Private key generated above
     * `VAPID_PUBLIC_KEY` Public key generated above
@@ -45,7 +46,15 @@ Middleware for hosting your own web push services, backed by Klaviyo CDP.
 ## Usage
 
 After a user subscribes to web push, the push token and custom message can be used within the
-context for a flow webhook. The JSON body should be the following (update `message` as desired):
+context for a flow webhook.
+
+`/push` requires authentication. Add the following Header:
+
+```
+x-api-key: [SERVER_API_KEY set by env]
+```
+
+The JSON body should be the following (update `message` as desired):
 
 ```json
 {

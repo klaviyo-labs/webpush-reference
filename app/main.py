@@ -1,8 +1,9 @@
 from base64 import b64decode, b64encode
 import json
 import os
+import typing
 
-from fastapi import BackgroundTasks, FastAPI, Request
+from fastapi import BackgroundTasks, Depends, FastAPI, Header, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.templating import Jinja2Templates
 from klaviyo_sdk_beta import Client  # revision "2022-09-07.pre"
@@ -33,6 +34,12 @@ class PushMessage(BaseModel):
 class Subscription(BaseModel):
     subscription_information: dict
     kl_exchange: str
+
+
+async def authorizer(x_api_key: typing.Optional[str] = Header(...)):
+    if x_api_key != os.environ.get("SERVER_API_KEY"):
+        raise HTTPException(status_code=401)
+    return x_api_key
 
 
 def send_web_push(subscription_information, message_body):
@@ -115,7 +122,7 @@ async def subscribe_user(subscription: Subscription, background_tasks: Backgroun
     return {"Success": 1}
 
 
-@app.post("/push")
+@app.post("/push", dependencies=[Depends(authorizer)])
 async def push(push_message: PushMessage, background_tasks: BackgroundTasks):
     background_tasks.add_task(push_subscription, push_message=push_message)
     return {"Success": 1}
